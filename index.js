@@ -1,10 +1,12 @@
-var mosca = require('mosca');
-
+const http = require('http');
+const mosca = require('mosca');
 var settings = {
   port: 1883,
 };
 
+var httpServ = http.createServer()
 var server = new mosca.Server(settings);
+server.attachHttpServer(httpServ);
 
 server.on('clientConnected', function(client) {
     console.log('client connected', client.id);
