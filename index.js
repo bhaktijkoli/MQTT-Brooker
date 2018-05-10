@@ -1,13 +1,13 @@
 const http = require('http');
 const mosca = require('mosca');
 var settings = {
-  port: 1883,
+  port: process.env.MQTT_PORT,
 };
 
 var httpServ = http.createServer()
 var server = new mosca.Server(settings);
 server.attachHttpServer(httpServ);
-httpServ.listen(3000, ()=>console.log("Web socket server is running."));
+httpServ.listen(process.env.SERVER_PORT, ()=>console.log("Web socket server is running."));
 
 // Accepts the connection if the username and password are valid
 var authenticate = function(client, username, password, callback) {
