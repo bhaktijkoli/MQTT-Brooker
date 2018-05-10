@@ -13,6 +13,7 @@
   "author": "bhaktijkoli121@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^5.0.1",
     "mosca": "^2.8.1"
   }
 }
