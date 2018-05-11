@@ -1,14 +1,15 @@
-const http = require('http');
+const express = require('express')
+const app = express()
+
 const mosca = require('mosca');
 require('dotenv').config()
 var settings = {
   port: parseInt(process.env.MQTT_PORT),
 };
 
-var httpServ = http.createServer()
 var server = new mosca.Server(settings);
-server.attachHttpServer(httpServ);
-httpServ.listen(process.env.SERVER_PORT, ()=>console.log("Web socket server is running at port", process.env.SERVER_PORT));
+server.attachHttpServer(app);
+app.listen(process.env.SERVER_PORT, ()=>console.log("Web socket server is running at port", process.env.SERVER_PORT));
 
 // Accepts the connection if the username and password are valid
 var authenticate = function(client, username, password, callback) {
@@ -49,3 +50,7 @@ function setup() {
   server.authorizeSubscribe = authorizeSubscribe;
   console.log('Mosca server is up and running at', process.env.MQTT_PORT);
 }
+
+// Express Routes
+app.get('/', (req, res) => res.send('MQTT Brooker'));
+app.use(express.static('public'))
